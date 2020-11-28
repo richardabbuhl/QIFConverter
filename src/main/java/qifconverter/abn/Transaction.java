@@ -15,13 +15,13 @@ public class Transaction
     public String ref;
 
     /** The splits in this transaction (usually two) */
-    public List splits;
+    public List<Split> splits;
 
     /**
      * Creates a new empty Transaction object
      */
     public Transaction() {
-        splits = new ArrayList(2);
+        splits = new ArrayList<>(2);
         ref = null;
     }
 }

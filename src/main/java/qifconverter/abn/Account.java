@@ -33,14 +33,14 @@ public class Account
     public String name;
 
     /** The Transaction objects for this Account */
-    public List trans;
+    public List<Transaction> trans;
 
     /**
      * Creates a blank Account object
      */
     public Account() {
         type = -1;
-        trans = new ArrayList();
+        trans = new ArrayList<>();
     }
 
     /**
@@ -53,16 +53,12 @@ public class Account
         // double-entry accounts
         if (typeName.equalsIgnoreCase("bank")) {
             type = TYPE_BANK;
-            return;
         } else if (typeName.equalsIgnoreCase("credit")) {
             type = TYPE_CREDIT;
-            return;
         } else if (typeName.equalsIgnoreCase("mutual")) {
             type = TYPE_MUTUAL;
-            return;
         } else {
             type = TYPE_DOUBLEENTRY;
-            return;
         }
     }
 }
