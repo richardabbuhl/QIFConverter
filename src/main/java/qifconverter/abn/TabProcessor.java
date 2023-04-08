@@ -9,7 +9,6 @@ import com.univocity.parsers.fixed.FixedWidthParserSettings;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -20,7 +19,7 @@ public class TabProcessor {
     public static final String S = "  ";
 
     public List<String[]> getTabDataFixedWidth(String path) {
-        try (Reader inputReader = new InputStreamReader(new FileInputStream(new File(path)), StandardCharsets.UTF_8)) {
+        try (Reader inputReader = new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8)) {
             FixedWidthFields fieldLengths = new FixedWidthFields(10, 4, 9, 8, 7, 9, 7, 8, 65, 33);
             FixedWidthParserSettings settings = new FixedWidthParserSettings(fieldLengths);
             settings.setSkipTrailingCharsUntilNewline(true);
@@ -71,7 +70,7 @@ public class TabProcessor {
     }
 
     public void printRecord(PrintWriter printWriter, TabRecord tabRecord) {
-        LocalDate datePosted = LocalDate.parse(tabRecord.getDatePosted(), DateTimeFormatter.ofPattern("yyyyMMdd"));
+        LocalDate datePosted = LocalDate.parse(tabRecord.getDate1(), DateTimeFormatter.ofPattern("yyyyMMdd"));
         printWriter.println("D" + QUICKEN_FORMAT.format(datePosted));
         printWriter.println("T" + tabRecord.getActualAmount().replace(',', '.'));
         String fixedName = fixName(extractName(printWriter, tabRecord.getDescription()));
@@ -97,7 +96,7 @@ public class TabProcessor {
 
     private String extractName(PrintWriter printWriter, String strLineText) {
         if (strLineText.contains("BEA")) {
-            String substring = strLineText.substring(33, 66);
+            String substring = strLineText.substring(33);
             if (substring.contains(",")) {
                 int endIndex = substring.contains(",") ? substring.indexOf(",") : substring.length();
                 return substring.substring(0, endIndex);
@@ -130,7 +129,7 @@ public class TabProcessor {
 
         } else if (strLineText.startsWith("/TRTP")) {
             String[] split = strLineText.split("/");
-            return split[6];
+            return split[8];
         }
 
         return "PROBLEMO" + strLineText;
