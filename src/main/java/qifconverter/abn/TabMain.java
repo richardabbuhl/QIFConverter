@@ -12,7 +12,6 @@ public class TabMain {
     private final static String QUEUE_DIR = "queue";
     private final static String TAB_FILE_NAME = "TXT230602201456";
 
-
     public static void main(String[] args) throws IOException {
         TabMain tabMain = new TabMain();
         TabProcessor tabProcessor = new TabProcessor();
