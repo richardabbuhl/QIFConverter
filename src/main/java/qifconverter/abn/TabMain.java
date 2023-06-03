@@ -8,15 +8,17 @@ import java.util.List;
 
 public class TabMain {
 
-    public String userDir = System.getProperty("user.dir");
+    private final static String USER_DIR = System.getProperty("user.dir");
+    private final static String QUEUE_DIR = "queue";
+    private final static String TAB_FILE_NAME = "TXT230602201456";
+
 
     public static void main(String[] args) throws IOException {
         TabMain tabMain = new TabMain();
         TabProcessor tabProcessor = new TabProcessor();
-        String tabFileName = "TXT230327200841";
-        List<TabRecord> data = tabProcessor.getTabDataFancy(tabMain.userDir + File.separator + tabFileName + ".TAB");
+        List<TabRecord> data = tabProcessor.getTabDataFancy(USER_DIR + File.separator + QUEUE_DIR + File.separator + TAB_FILE_NAME + ".TAB");
 
-        FileWriter fileWriter = new FileWriter(tabMain.userDir + File.separator + tabFileName + ".TXT");
+        FileWriter fileWriter = new FileWriter(USER_DIR + File.separator + QUEUE_DIR + File.separator + TAB_FILE_NAME + ".TXT");
         try (fileWriter; PrintWriter printWriter = new PrintWriter(fileWriter)) {
             tabProcessor.printAllRecord(printWriter, data);
         } catch (Exception e) {

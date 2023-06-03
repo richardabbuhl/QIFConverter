@@ -4,6 +4,7 @@
 
 # Processed files
 /processed/
+/queue/
 
 # Compiled class file
 *.class
